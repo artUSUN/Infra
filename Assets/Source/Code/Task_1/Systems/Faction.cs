@@ -11,14 +11,16 @@ namespace Source.Code.Task_1.Systems
     {
         private GameObject trooperPrefab;
         private FactionSettings settings;
-        private Transform tr;
-        private List<TrooperBehaviour> trooperList = new List<TrooperBehaviour>();
+        private readonly List<TrooperBehaviour> trooperList = new List<TrooperBehaviour>();
+
+        public LayerMask EnemyLayers => settings.EnemyLayers;
+        public Transform Transform { get; private set; }
 
         public void Initialize(FactionSettings settings, GameObject trooperPrefab)
         {
             this.settings = settings;
             this.trooperPrefab = trooperPrefab;
-            tr = transform;
+            Transform = transform;
             SpawnTroopers();
         }
 
@@ -36,7 +38,7 @@ namespace Source.Code.Task_1.Systems
 
         private void SpawnTrooper(float trooperXPos)
         {
-            var newTrooper = Instantiate(trooperPrefab, tr);
+            var newTrooper = Instantiate(trooperPrefab, Transform);
             newTrooper.transform.localPosition = Vector3.zero;
             newTrooper.transform.localPosition += Vector3.left * trooperXPos;
             
@@ -53,6 +55,8 @@ namespace Source.Code.Task_1.Systems
 
             var newModel = Instantiate(settings.TrooperModel, newTrooper.transform);
             newModel.transform.localPosition = Vector3.zero;
+
+            newTrooper.layer = settings.Layer;
         }
     }
 
@@ -60,16 +64,21 @@ namespace Source.Code.Task_1.Systems
     [Serializable]
     public struct FactionSettings
     {
-        [SerializeField] private GameObject trooperModelPrefab;
-        [SerializeField] private Transform spawnPoint;
+        [Range(0, 31)] [SerializeField] private int layer;
+        [SerializeField] private LayerMask enemyLayers;
         [SerializeField] private TargetSelectionComponent targetSelectionComponent;
         [Range(1, 5)] [SerializeField] private int numberOfTroopers;
         [Min(1)] [SerializeField] private float spawnDistanceBetweenTroopers;
+        [Header("Links")]
+        [SerializeField] private GameObject trooperModelPrefab;
+        [SerializeField] private Transform spawnPoint;
 
         public GameObject TrooperModel => trooperModelPrefab;
         public Transform SpawnPoint => spawnPoint;
         public TargetSelectionComponent TargetSelectionComponent => targetSelectionComponent;
         public int NumOfTroopers => numberOfTroopers;
-        public float SpawnDistance => spawnDistanceBetweenTroopers;        
+        public float SpawnDistance => spawnDistanceBetweenTroopers;
+        public int Layer => layer;
+        public LayerMask EnemyLayers => enemyLayers;
     }
 }

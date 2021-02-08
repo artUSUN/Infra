@@ -9,15 +9,25 @@ namespace Source.Code.Task_1.Troopers
     public class TrooperBehaviour : MonoBehaviour
     {
         private Faction faction;
+        private TargetSelectionComponent targetSelectionComponent;
 
-        public TargetSelectionComponent TargetSelection { get; private set; }
+        public TrooperBehaviour Target { get; private set; }
+        public Transform Transform { get; private set; }
+        
 
         public void Initialize(Faction faction, TargetSelectionComponent targetSelectionComponent)
         {
             this.faction = faction;
-            TargetSelection = targetSelectionComponent;
+            this.targetSelectionComponent = targetSelectionComponent;
+            Transform = transform;
         }
 
-        
+        public void TrySetNewTarget()
+        {
+            if (Target = null)
+            {
+                Target = targetSelectionComponent.GetNewTarget(this, faction);
+            }
+        }
     }
 }
