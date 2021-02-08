@@ -1,7 +1,6 @@
 ﻿using Source.Code.Task_1.Troopers;
 using Source.Code.Task_1.Troopers.Components;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,19 +23,24 @@ namespace Source.Code.Task_1.Systems
             SpawnTroopers();
         }
 
+        public void ForEachTrooper(Action<TrooperBehaviour> action)
+        {
+            foreach (var trooper in trooperList) action(trooper);
+        }
+
         private void SpawnTroopers()
         {
             float firstTrooperXPos = (settings.NumOfTroopers - 1) * (settings.SpawnDistance / 2);
-            SpawnTrooper(firstTrooperXPos);
+            SpawnTrooper(firstTrooperXPos, 1);
 
             for (int i = 1; i < settings.NumOfTroopers; i++)
             {
                 float trooperXPos = firstTrooperXPos - (settings.SpawnDistance * i);
-                SpawnTrooper(trooperXPos);
+                SpawnTrooper(trooperXPos, i + 1);
             }
         }
 
-        private void SpawnTrooper(float trooperXPos)
+        private void SpawnTrooper(float trooperXPos, int index)
         {
             var newTrooper = Instantiate(trooperPrefab, Transform);
             newTrooper.transform.localPosition = Vector3.zero;
@@ -57,6 +61,7 @@ namespace Source.Code.Task_1.Systems
             newModel.transform.localPosition = Vector3.zero;
 
             newTrooper.layer = settings.Layer;
+            newTrooper.gameObject.name += " " + index;
         }
     }
 

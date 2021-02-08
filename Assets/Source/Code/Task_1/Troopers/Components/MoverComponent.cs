@@ -6,23 +6,24 @@ namespace Source.Code.Task_1.Troopers.Components
     {
         private readonly Transform tr;
         private readonly Rigidbody rb;
-        private readonly float speed;
+        private readonly TrooperBehaviour trooper;
 
         public MoverComponent(TrooperBehaviour trooper)
         {
             tr = trooper.Transform;
             rb = trooper.GetComponent<Rigidbody>();
-            speed = trooper.Settings.MoveSpeed;
+            this.trooper = trooper;
         }
 
         public void Move(Vector3 targetPoint)
         {
             SetRotationToTarget(targetPoint);
 
-            rb.AddForce(tr.forward * speed * Time.fixedDeltaTime);
+            rb.AddForce(tr.forward * 10 * Time.fixedDeltaTime, ForceMode.VelocityChange);
 
-            rb.velocity = Vector3.ClampMagnitude(rb.velocity, speed); 
+            rb.velocity = Vector3.ClampMagnitude(rb.velocity, trooper.Settings.MoveSpeed); 
         }
+
 
         private void SetRotationToTarget(Vector3 targetPoint)
         {

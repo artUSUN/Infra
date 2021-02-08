@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Source.Code.Task_1.Troopers.BehaviourStates
 {
@@ -11,6 +9,24 @@ namespace Source.Code.Task_1.Troopers.BehaviourStates
         public override void Enter()
         {
             trooper.TrySetNewTarget();
+            
+        }
+
+        public override void FixedUpdate()
+        {
+            if (trooper.Target == null) 
+            {
+                trooper.SetState(trooper.TrooperStates.Idle);
+                return;
+            }
+
+            
+            trooper.Mover.Move(trooper.Target.Transform.position);
+
+            if (trooper.IsTargetInAttackRadius())
+            {
+                trooper.SetState(trooper.TrooperStates.AttackTarget);
+            }
         }
     }
 }

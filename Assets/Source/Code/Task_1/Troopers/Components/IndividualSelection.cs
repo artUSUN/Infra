@@ -8,10 +8,11 @@ namespace Source.Code.Task_1.Troopers.Components
     [CreateAssetMenu(fileName = "Individual Target Selection", menuName = "Target Selection Components/Individual Target Selection")]
     public class IndividualSelection : TargetSelectionComponent
     {
+        private const float raycastLength = 100;
+
         public override TrooperBehaviour GetNewTarget(TrooperBehaviour trooper, Faction faction)
         {
             var enemies = Physics.OverlapSphere(faction.Transform.position, raycastLength, faction.EnemyLayers);
-
             if (enemies.Length == 0) return null;
 
             //int randomValue = Random.Range(0, enemies.Length);

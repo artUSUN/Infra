@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Source.Code.Task_1.Systems
 {
@@ -10,6 +11,8 @@ namespace Source.Code.Task_1.Systems
         [Header("Links")]
         [SerializeField] private GameObject trooperPrefab;
 
+        public List<Faction> Factions { get; private set; } = new List<Faction>();
+
         private void Awake()
         {
             InitializeFaction(redSettings);
@@ -20,6 +23,7 @@ namespace Source.Code.Task_1.Systems
         {
             var newFaction = settings.SpawnPoint.gameObject.AddComponent<Faction>();
             newFaction.Initialize(settings, trooperPrefab);
+            Factions.Add(newFaction);
         }
     }
 }

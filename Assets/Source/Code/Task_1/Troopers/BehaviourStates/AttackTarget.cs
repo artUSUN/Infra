@@ -2,17 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackTarget : MonoBehaviour
+namespace Source.Code.Task_1.Troopers.BehaviourStates
 {
-    // Start is called before the first frame update
-    void Start()
+    public class AttackTarget : State
     {
-        
-    }
+        public AttackTarget(TrooperBehaviour trooper) : base(trooper) { }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public override void Update()
+        {
+            if (trooper.Target == null)
+            {
+                trooper.SetState(trooper.TrooperStates.MoveToTarget);
+                return;
+            }
+
+            //trooper.AttackComponent
+
+            if (trooper.IsTargetInAttackRadius() == false)
+            {
+                trooper.SetState(trooper.TrooperStates.MoveToTarget);
+            }
+        }
     }
 }
