@@ -69,5 +69,5 @@ MonoBehaviour:
     trooperModelPrefab: {fileID: 8660877592115356515, guid: 86aa2300449ce5a4293fd65589f13318,
       type: 3}
     spawnPoint: {fileID: 0}
-  trooperPrefab: {fileID: 3793074334625920318, guid: ff0a5900fe282634497f3dfeaa9b3e89,
+  trooperPrefab: {fileID: 2855329850494502949, guid: b0d1fdcbb2eca70479f54f25c966248b,
     type: 3}

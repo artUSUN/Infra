@@ -1,5 +1,7 @@
 ﻿using System;
+using Task1.Source.Code.Environment;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Task1.Source.Code.Troopers.Components
 {
@@ -7,6 +9,7 @@ namespace Task1.Source.Code.Troopers.Components
     {
         private TrooperBehaviour trooper;
         private float currentHP;
+        private Slider hpBar;
 
         public event Action<TrooperBehaviour> TrooperDied;
 
@@ -32,13 +35,22 @@ namespace Task1.Source.Code.Troopers.Components
                 Death();
             }
 
-
+            if (hpBar == null) CreateHpBar();
+            hpBar.value = currentHP / trooper.Settings.MaxHP;
         }
 
         private void Death()
         {
             TrooperDied?.Invoke(trooper);
-            MonoBehaviour.Destroy(trooper.gameObject);
+            MonoBehaviour.Destroy(trooper.Transform.parent.gameObject);
+        }
+
+        private void CreateHpBar()
+        {
+            var hpBarGO = MonoBehaviour.Instantiate(trooper.HpBarPrefab, trooper.FollowToRoot);
+            //hpBarGO.transform.localPosition = Vector3.zero;
+            hpBarGO.AddComponent<LookAtCamera>();
+            hpBar = hpBarGO.GetComponentInChildren<Slider>();
         }
     }
 }

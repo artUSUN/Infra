@@ -3,12 +3,15 @@ using Task1.Source.Code.Troopers.BehaviourStates;
 using Task1.Source.Code.Troopers.Components;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Task1.Source.Code.Troopers
 {
     [RequireComponent(typeof(Rigidbody))]
     public class TrooperBehaviour : MonoBehaviour
     {
+        [SerializeField] private Transform followToRoot;
+        [SerializeField] private GameObject hpBarPrefab;
         [SerializeField] private TrooperSettings settings;
 
         private TargetSelectionComponent targetSelectionComponent;
@@ -22,6 +25,8 @@ namespace Task1.Source.Code.Troopers
         public TrooperSettings Settings => settings;
         public State CurrentState { get; private set; }
         public TrooperStates TrooperStates { get; private set; }
+        public Transform FollowToRoot => followToRoot;
+        public GameObject HpBarPrefab => hpBarPrefab;
 
 
         public void Initialize(Faction faction, TargetSelectionComponent targetSelectionComponent)

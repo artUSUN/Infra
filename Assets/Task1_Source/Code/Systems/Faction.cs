@@ -43,7 +43,7 @@ namespace Task1.Source.Code.Systems
 
         private void SpawnTrooper(float trooperXPos, int index)
         {
-            var trooperBehaviour = trooperPrefab.GetComponent<TrooperBehaviour>();
+            var trooperBehaviour = trooperPrefab.GetComponentInChildren<TrooperBehaviour>();
 
             if (trooperBehaviour == null)
             {
@@ -54,16 +54,16 @@ namespace Task1.Source.Code.Systems
             var newTrooper = Instantiate(trooperPrefab, Transform);
             newTrooper.transform.localPosition = Vector3.zero;
             newTrooper.transform.localPosition += Vector3.left * trooperXPos;
-            newTrooper.layer = settings.Layer;
             newTrooper.gameObject.name += " " + index;
 
-            trooperBehaviour = newTrooper.GetComponent<TrooperBehaviour>();
+            trooperBehaviour = newTrooper.GetComponentInChildren<TrooperBehaviour>();
+            trooperBehaviour.gameObject.layer = settings.Layer;
             trooperBehaviour.Initialize(this, settings.TargetSelectionComponent);
             trooperBehaviour.HealthComponent.TrooperDied += OnTrooperDied;
             trooperList.Add(trooperBehaviour);
 
 
-            var newModel = Instantiate(settings.TrooperModel, newTrooper.transform);
+            var newModel = Instantiate(settings.TrooperModel, trooperBehaviour.Transform);
             newModel.transform.localPosition = Vector3.zero;
         }
 

@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41c8c91c18a369a4e991ee700c4f428e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  followToRoot: {fileID: 0}
+  hpBarPrefab: {fileID: 0}
   settings:
     maxHP: 100
     damagePerSecond: 15
