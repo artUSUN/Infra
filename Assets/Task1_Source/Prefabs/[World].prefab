@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5246072163114413714
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5246072163114413715}
+  - component: {fileID: 5246072163114413716}
+  m_Layer: 0
+  m_Name: '[World]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5246072163114413715
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5246072163114413714}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5246072163114413716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5246072163114413714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80fbe501f6b76c14286cb270d1be87ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  redSettings:
+    name: Red Team
+    layer: 9
+    enemyLayers:
+      serializedVersion: 2
+      m_Bits: 256
+    targetSelectionComponent: {fileID: 11400000, guid: 38a4363e7bd45dd4a82815dcddf3458c,
+      type: 2}
+    numberOfTroopers: 3
+    spawnDistanceBetweenTroopers: 2
+    trooperModelPrefab: {fileID: 7123313044356767129, guid: 8ac05893f15153d42b8f257fa4976332,
+      type: 3}
+    spawnPoint: {fileID: 0}
+  blueSettings:
+    name: Blue Team
+    layer: 8
+    enemyLayers:
+      serializedVersion: 2
+      m_Bits: 512
+    targetSelectionComponent: {fileID: 11400000, guid: 12527898bdd081a40a9552d87d7c63d7,
+      type: 2}
+    numberOfTroopers: 3
+    spawnDistanceBetweenTroopers: 2
+    trooperModelPrefab: {fileID: 8660877592115356515, guid: 86aa2300449ce5a4293fd65589f13318,
+      type: 3}
+    spawnPoint: {fileID: 0}
+  trooperPrefab: {fileID: 3793074334625920318, guid: ff0a5900fe282634497f3dfeaa9b3e89,
+    type: 3}
