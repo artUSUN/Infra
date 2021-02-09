@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Source.Code.Task_1.Systems
 {
@@ -34,6 +35,7 @@ namespace Source.Code.Task_1.Systems
             RedFaction = red;
             CurrentState = GameStates.PreGame;
             initialized = true;
+            SceneManager.activeSceneChanged += OnSceneLoaded;
         }
 
         public static void FactionLost(Faction losingFaction)
@@ -53,6 +55,12 @@ namespace Source.Code.Task_1.Systems
             ActivateTroopers(BlueFaction);
             CurrentState = GameStates.Game;
             GameStarted?.Invoke();
+        }
+
+        private static void OnSceneLoaded(Scene current, Scene next)
+        {
+            initialized = false;
+            SceneManager.activeSceneChanged -= OnSceneLoaded;
         }
 
         private static void ActivateTroopers(Faction faction)

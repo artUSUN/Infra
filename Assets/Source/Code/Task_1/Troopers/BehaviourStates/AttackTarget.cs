@@ -16,7 +16,7 @@ namespace Source.Code.Task_1.Troopers.BehaviourStates
                 return;
             }
 
-            //trooper.AttackComponent
+            trooper.AttackComponent.AttackTarget(trooper.CurrentTarget);
 
             if (trooper.IsTargetInAttackRadius() == false)
             {

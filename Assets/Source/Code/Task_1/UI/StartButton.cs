@@ -8,8 +8,6 @@ namespace Source.Code.Task_1.UI
         public void OnButtonClicked()
         {
             GameStatesSwitcher.StartGame();
-
-            this.gameObject.SetActive(false);
         }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Source.Code.Task_1.Troopers.Components
@@ -40,6 +38,7 @@ namespace Source.Code.Task_1.Troopers.Components
         private void Death()
         {
             TrooperDied?.Invoke(trooper);
+            MonoBehaviour.Destroy(trooper.gameObject);
         }
     }
 }

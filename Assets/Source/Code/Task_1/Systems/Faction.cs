@@ -14,6 +14,7 @@ namespace Source.Code.Task_1.Systems
 
         public LayerMask EnemyLayers => settings.EnemyLayers;
         public Transform Transform { get; private set; }
+        public string Name => settings.Name;
 
         public void Initialize(FactionSettings settings, GameObject trooperPrefab)
         {
@@ -80,7 +81,7 @@ namespace Source.Code.Task_1.Systems
 
             if (trooperList.Count == 0)
             {
-
+                GameStatesSwitcher.FactionLost(this);
             }
         }
     }
@@ -89,6 +90,7 @@ namespace Source.Code.Task_1.Systems
     [Serializable]
     public struct FactionSettings
     {
+        [SerializeField] private string name;
         [Range(0, 31)] [SerializeField] private int layer;
         [SerializeField] private LayerMask enemyLayers;
         [SerializeField] private TargetSelectionComponent targetSelectionComponent;
@@ -98,6 +100,7 @@ namespace Source.Code.Task_1.Systems
         [SerializeField] private GameObject trooperModelPrefab;
         [SerializeField] private Transform spawnPoint;
 
+        public string Name => name;
         public GameObject TrooperModel => trooperModelPrefab;
         public Transform SpawnPoint => spawnPoint;
         public TargetSelectionComponent TargetSelectionComponent => targetSelectionComponent;

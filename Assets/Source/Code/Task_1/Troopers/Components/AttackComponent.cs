@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Source.Code.Task_1.Troopers.Components
 {
@@ -15,7 +13,7 @@ namespace Source.Code.Task_1.Troopers.Components
 
         public void AttackTarget(TrooperBehaviour target)
         {
-            target.HealthComponent.ApplyDamage(trooper.Settings.DamagePerSecond, trooper);
+            target.HealthComponent.ApplyDamage(trooper.Settings.DamagePerSecond * Time.deltaTime, trooper);
         }
     }
 }
