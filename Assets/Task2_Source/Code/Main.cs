@@ -30,25 +30,24 @@ namespace Task2.Source.Code
                     else if (curCell == 1)
                     {
                         Vector2Int curCellCoordinate = new Vector2Int(i, j);
+                        if (exploredIslandCells.Contains(curCellCoordinate)) continue;
 
                         do
                         {
                             if (islandCellQueueForSearch.Count != 0) curCellCoordinate = islandCellQueueForSearch.Dequeue();
 
-                            if (exploredIslandCells.Contains(curCellCoordinate)) continue;
-                            else
-                            {
-                                exploredIslandCells.Add(curCellCoordinate);
+                            exploredIslandCells.Add(curCellCoordinate);
 
-                                for (int k = 0; k < cellsAround.Length; k++)
-                                {
-                                    Vector2Int curAroundCellCoordinate = curCellCoordinate + cellsAround[k];
-                                    if (IsItUnexploredIslandCell(curAroundCellCoordinate, ref cells, ref exploredIslandCells))
-                                        islandCellQueueForSearch.Enqueue(curAroundCellCoordinate);
-                                }
+                            for (int k = 0; k < cellsAround.Length; k++)
+                            {
+                                Vector2Int curAroundCellCoordinate = curCellCoordinate + cellsAround[k];
+                                if (IsItUnexploredIslandCell(curAroundCellCoordinate, ref cells, ref exploredIslandCells))
+                                    islandCellQueueForSearch.Enqueue(curAroundCellCoordinate);
                             }
 
                         } while (islandCellQueueForSearch.Count != 0);
+
+                        islandCount++;
                     }
                 }
             }
@@ -59,14 +58,14 @@ namespace Task2.Source.Code
         private static bool IsItUnexploredIslandCell(Vector2Int coordinate, ref int[][] cells, ref List<Vector2Int> exploredIslandCells)
         {
             bool isXValid = 0 <= coordinate.x && coordinate.x < cells.Length;
+            if (!isXValid) return false;
             bool isYValid = 0 <= coordinate.y && coordinate.y < cells[coordinate.x].Length;
+            if (!isYValid) return false;
 
-            if (isXValid && isYValid)
-            {
-                if (exploredIslandCells.Contains(coordinate)) return false;
-                else return true;
-            }
-            else return false;
+            if (cells[coordinate.x][coordinate.y] == 0) return false;
+
+            if (exploredIslandCells.Contains(coordinate)) return false;
+            else return true;
         }
     }
 }
