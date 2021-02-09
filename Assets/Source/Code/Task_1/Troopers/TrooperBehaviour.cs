@@ -11,11 +11,13 @@ namespace Source.Code.Task_1.Troopers
     {
         [SerializeField] private TrooperSettings settings;
 
-        private Faction faction;
         private TargetSelectionComponent targetSelectionComponent;
 
-        public MoverComponent Mover { get; private set; }
-        public TrooperBehaviour Target { get; private set; }
+        public Faction Faction { get; private set; }
+        public HealthComponent HealthComponent { get; private set; }
+        public AttackComponent AttackComponent { get; private set; }
+        public MoverComponent MoverComponent { get; private set; }
+        public TrooperBehaviour CurrentTarget { get; private set; }
         public Transform Transform { get; private set; }
         public TrooperSettings Settings => settings;
         public State CurrentState { get; private set; }
@@ -24,11 +26,16 @@ namespace Source.Code.Task_1.Troopers
 
         public void Initialize(Faction faction, TargetSelectionComponent targetSelectionComponent)
         {
-            this.faction = faction;
+            this.Faction = faction;
             this.targetSelectionComponent = targetSelectionComponent;
+
             Transform = transform;
-            Mover = new MoverComponent(this);
+
+            MoverComponent = new MoverComponent(this);
+            HealthComponent = new HealthComponent(this);
+            AttackComponent = new AttackComponent(this);
             TrooperStates = new TrooperStates(this);
+
             SetState(TrooperStates.Idle);
         }
 
@@ -54,15 +61,15 @@ namespace Source.Code.Task_1.Troopers
 
         public void TrySetNewTarget()
         {
-            if (Target == null)
+            if (CurrentTarget == null)
             {
-                Target = targetSelectionComponent.GetNewTarget(this, faction);
+                CurrentTarget = targetSelectionComponent.GetNewTarget(this, Faction);
             }
         }
 
         public bool IsTargetInAttackRadius()
         {
-            return Mathf.Pow(settings.AttackRange, 2) > (Target.Transform.position - Transform.position).sqrMagnitude;
+            return Mathf.Pow(settings.AttackRange, 2) > (CurrentTarget.Transform.position - Transform.position).sqrMagnitude;
         }
         #endregion
     }

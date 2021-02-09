@@ -14,14 +14,14 @@ namespace Source.Code.Task_1.Troopers.BehaviourStates
 
         public override void FixedUpdate()
         {
-            if (trooper.Target == null) 
+            if (trooper.CurrentTarget == null) 
             {
                 trooper.SetState(trooper.TrooperStates.Idle);
                 return;
             }
 
             
-            trooper.Mover.Move(trooper.Target.Transform.position);
+            trooper.MoverComponent.Move(trooper.CurrentTarget.Transform.position);
 
             if (trooper.IsTargetInAttackRadius())
             {

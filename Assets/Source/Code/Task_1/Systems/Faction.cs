@@ -42,11 +42,7 @@ namespace Source.Code.Task_1.Systems
 
         private void SpawnTrooper(float trooperXPos, int index)
         {
-            var newTrooper = Instantiate(trooperPrefab, Transform);
-            newTrooper.transform.localPosition = Vector3.zero;
-            newTrooper.transform.localPosition += Vector3.left * trooperXPos;
-            
-            var trooperBehaviour = newTrooper.GetComponent<TrooperBehaviour>();
+            var trooperBehaviour = trooperPrefab.GetComponent<TrooperBehaviour>();
 
             if (trooperBehaviour == null)
             {
@@ -54,14 +50,38 @@ namespace Source.Code.Task_1.Systems
                 return;
             }
 
+            var newTrooper = Instantiate(trooperPrefab, Transform);
+            newTrooper.transform.localPosition = Vector3.zero;
+            newTrooper.transform.localPosition += Vector3.left * trooperXPos;
+            newTrooper.layer = settings.Layer;
+            newTrooper.gameObject.name += " " + index;
+
+            trooperBehaviour = newTrooper.GetComponent<TrooperBehaviour>();
             trooperBehaviour.Initialize(this, settings.TargetSelectionComponent);
+            trooperBehaviour.HealthComponent.TrooperDied += OnTrooperDied;
             trooperList.Add(trooperBehaviour);
+
 
             var newModel = Instantiate(settings.TrooperModel, newTrooper.transform);
             newModel.transform.localPosition = Vector3.zero;
+        }
 
-            newTrooper.layer = settings.Layer;
-            newTrooper.gameObject.name += " " + index;
+        private void OnTrooperDied(TrooperBehaviour diedTrooper)
+        {
+            if (trooperList.Contains(diedTrooper)) trooperList.Remove(diedTrooper);
+#if UNITY_EDITOR
+            else
+            {
+                Debug.LogError($"Trooper list does not contains this trooper", diedTrooper.Transform);
+                Debug.Break();
+            }
+#endif
+            diedTrooper.HealthComponent.TrooperDied -= OnTrooperDied;
+
+            if (trooperList.Count == 0)
+            {
+
+            }
         }
     }
 

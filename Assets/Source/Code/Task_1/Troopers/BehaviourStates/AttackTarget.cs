@@ -10,7 +10,7 @@ namespace Source.Code.Task_1.Troopers.BehaviourStates
 
         public override void Update()
         {
-            if (trooper.Target == null)
+            if (trooper.CurrentTarget == null)
             {
                 trooper.SetState(trooper.TrooperStates.MoveToTarget);
                 return;
